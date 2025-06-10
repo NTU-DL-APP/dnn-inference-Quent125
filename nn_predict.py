@@ -13,18 +13,9 @@ def relu(x):
 def softmax(x):
     # TODO: Implement the SoftMax function
     # return x
-    x = np.array(x, dtype=np.float64)  # 確保使用高精度
-
-    if x.ndim == 1:
-        # 一維數組情況
-        x_max = np.max(x)
-        exp_x = np.exp(x - x_max)
-        return exp_x / np.sum(exp_x)
-    else:
-        # 多維數組情況
-        x_max = np.max(x, axis=-1, keepdims=True)
-        exp_x = np.exp(x - x_max)
-        return exp_x / np.sum(exp_x, axis=-1, keepdims=True)
+    # for numerical stability
+    exp_x = np.exp(x - np.max(x, axis=-1, keepdims=True))
+    return exp_x / np.sum(exp_x, axis=-1, keepdims=True)
 
 # === Flatten ===
 

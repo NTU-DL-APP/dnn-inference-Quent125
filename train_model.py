@@ -40,7 +40,7 @@ print("開始訓練模型...")
 history = model.fit(
     x_train, y_train_onehot,
     batch_size=128,
-    epochs=20,
+    epochs=40,
     validation_data=(x_test, y_test_onehot),
     verbose=1
 )
