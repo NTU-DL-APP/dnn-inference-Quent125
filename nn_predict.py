@@ -14,15 +14,18 @@ def softmax(x):
     # TODO: Implement the SoftMax function
     # return x
     # for numerical stability
-    x = np.array(x)
-    # 處理一維和多維情況
+    x = np.array(x, dtype=np.float64)  # 確保數值精度
+
+    # 數值穩定性：減去最大值
     if x.ndim == 1:
-        # 對於一維數組，直接計算
-        exp_x = np.exp(x - np.max(x))
+        # 一維情況
+        x_max = np.max(x)
+        exp_x = np.exp(x - x_max)
         return exp_x / np.sum(exp_x)
     else:
-        # 對於多維數組，沿著最後一個軸計算
-        exp_x = np.exp(x - np.max(x, axis=-1, keepdims=True))
+        # 多維情況：沿著最後一個軸
+        x_max = np.max(x, axis=-1, keepdims=True)
+        exp_x = np.exp(x - x_max)
         return exp_x / np.sum(exp_x, axis=-1, keepdims=True)
 
 # === Flatten ===
